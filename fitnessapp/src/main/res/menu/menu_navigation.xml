@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/viewNavigationGym"
+        android:icon="@drawable/ic_gym"
+        android:title="@string/gym_tab"/>
+
+    <item android:id="@+id/viewNavigationHistory"
+        android:icon="@drawable/ic_history"
+        android:title="@string/history_tab"/>
+
+    <item android:id="@+id/viewNavigationProfile"
+        android:icon="@drawable/ic_profile"
+        android:title="@string/profile_tab"/>
+
+    <item android:id="@+id/viewNavigationSettings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings_tab"/>
+
+</menu>

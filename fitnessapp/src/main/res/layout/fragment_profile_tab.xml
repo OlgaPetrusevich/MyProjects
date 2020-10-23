@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/viewToolbarProfileTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorToolBar"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="@string/profile_tab" />
+
+    <ImageView
+        android:id="@+id/viewPhoto"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_profile"
+        app:layout_constraintRight_toLeftOf="@id/weightText"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab"
+        app:layout_constraintBottom_toBottomOf="@id/viewIndexDescription"/>
+
+    <TextView
+        android:id="@+id/weightText"
+        style="@style/TextStyleProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="@string/weight_text"
+        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintRight_toLeftOf="@id/viewWeightText"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab"
+        app:layout_constraintBottom_toTopOf="@id/viewHeightText"/>
+
+    <EditText
+        android:id="@+id/viewWeightText"
+        style="@style/TextStyleProfileEmpty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/holo_green_dark"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:hint="@string/weight_text_empty"
+        android:inputType="number"
+        app:layout_constraintLeft_toRightOf="@id/weightText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab" />
+
+    <TextView
+        android:id="@+id/heightText"
+        style="@style/TextStyleProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:text="@string/height_text"
+        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintRight_toLeftOf="@id/viewWeightText"
+        app:layout_constraintTop_toBottomOf="@id/weightText"
+        app:layout_constraintBottom_toBottomOf="@id/viewHeightText"/>
+
+    <EditText
+        android:id="@+id/viewHeightText"
+        style="@style/TextStyleProfileEmpty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:hint="@string/height_text_empty"
+        android:textSize="16sp"
+        android:textColor="@android:color/holo_green_dark"
+        android:inputType="number"
+        app:layout_constraintLeft_toRightOf="@id/heightText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewWeightText"  />
+
+    <TextView
+        android:id="@+id/indexWeightText"
+        style="@style/TextStyleProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/index_weight_text"
+        android:gravity="center"
+        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewHeightText" />
+
+    <TextView
+        android:id="@+id/viewIndexWeightText"
+        style="@style/TextStyleProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:text="@string/index_text"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/indexWeightText" />
+
+    <TextView
+        android:id="@+id/viewIndexDescription"
+        style="@style/TextStyleProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewIndexWeightText" />
+
+    <Button
+        android:id="@+id/viewProgressButton"
+        style="@style/TextStyleProfile"
+        android:layout_width="0dp"
+        android:paddingEnd="5dp"
+        android:paddingStart="5dp"
+        android:textSize="20sp"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_arrow"
+        android:gravity="center_horizontal|center_vertical"
+        android:background="@drawable/exercise_item"
+        android:text="@string/progress_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewIndexDescription" />
+
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewProgressButton" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textGender"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="@string/gender_text"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toLeftOf="@id/textAge"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab" />-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/viewGenderText"-->
+    <!--        style="@style/TextStyle"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center"-->
+    <!--        android:hint="@string/gender_text"-->
+    <!--        android:inputType="text"-->
+    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
+    <!--        app:layout_constraintRight_toLeftOf="@id/viewAgeText"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/textGender" />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/textAge"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center"-->
+    <!--        android:text="@string/age_text"-->
+    <!--        app:layout_constraintLeft_toRightOf="@id/textGender"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab" />-->
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/viewAgeText"-->
+    <!--        style="@style/TextStyle"-->
+    <!--        android:layout_width="0dp"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:gravity="center"-->
+    <!--        android:hint="@string/age_text"-->
+    <!--        android:inputType="number"-->
+    <!--        app:layout_constraintLeft_toRightOf="@id/viewGenderText"-->
+    <!--        app:layout_constraintRight_toRightOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/textAge" />-->
+</androidx.constraintlayout.widget.ConstraintLayout>

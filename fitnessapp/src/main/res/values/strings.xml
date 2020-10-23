@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Карманный фитнес</string>
+    <string name="gym_tab">Тренировки</string>
+    <string name="history_tab">История</string>
+    <string name="profile_tab">Профиль</string>
+    <string name="settings_tab">О Приложении</string>
+    <string name="progress_text">Мой прогресс</string>
+    <string name="gender_text">Пол</string>
+    <string name="age_text">Возраст</string>
+    <string name="height_text">Рост</string>
+    <string name="weight_text">Вес</string>
+    <string name="weight_text_empty">Введите вес</string>
+    <string name="height_text_empty">Введите рост</string>
+    <string name="index_weight_text">Индекс массы тела</string>
+    <string name="program_text">Программа тренировки</string>
+    <string name="category_rear_text">Тренировка спины и груди</string>
+    <string name="category_legs_text">Тренировка ног</string>
+    <string name="category_arms_text">Тренировка плеч и рук</string>
+    <string name="end_exercise_text">Завершить упражнение</string>
+    <string name="weight_exercise_text">Кг</string>
+    <string name="set_exercise_text">Количество подходов</string>
+    <string name="start_exercise_text">Начать подход</string>
+    <string name="max_weight_text">Максимальный вес</string>
+    <string name="empty_list_text">История упражнений отсутствует</string>
+    <string name="index_text">Введите рост и вес</string>
+    <string name="index_small">Недостаточная масса тела</string>
+    <string name="index_norm">Норма</string>
+    <string name="index_large">Избыточная масса тела</string>
+    <string name="index_very_large">Ожирение</string>
+    <string name="app_name_text">Карманный фитнес</string>
+    <string name="app_description_text">Карманный фитнес - приложение для улучшения качества тренировок. Позволяет отслеживать историю занятий и прогресс. Содержит комплексы упражнений на различные группы мышц.</string>
+    <string name="app_version_text">Версия: 1.0.0</string>
+    <string name="app_year_text">Год: 2020</string>
+
+</resources>

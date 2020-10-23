@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/exercise_item">
+
+    <TextView
+        android:id="@+id/viewDateText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="2dp"
+        android:paddingEnd="20dp"
+        android:text="01/01/2020"
+        android:textColor="@color/colorLightGrey"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/viewCategoryText"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/viewCategoryText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="CategoryName"
+        android:textColor="@color/colorLightGrey"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/viewDateText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/viewExerciseText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:layout_marginBottom="2dp"
+        android:textSize="19sp"
+        android:text="ExerciseNAme"
+        android:textColor="@color/colorViolet"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewCategoryText" />
+
+    <TextView
+        android:id="@+id/viewSetAmountText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:paddingBottom="4dp"
+        android:paddingEnd="10dp"
+        android:text="@string/set_exercise_text"
+        android:textColor="@color/colorLightGrey"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewExerciseText"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/viewAmountSetsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingEnd="10dp"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintLeft_toRightOf="@id/viewSetAmountText"
+        app:layout_constraintRight_toLeftOf="@id/viewMaxWeightText"
+        app:layout_constraintTop_toBottomOf="@id/viewExerciseText"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:text="30"/>
+
+    <TextView
+        android:id="@+id/viewMaxWeightText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:paddingEnd="10dp"
+        android:text="@string/max_weight_text"
+        android:textColor="@color/colorLightGrey"
+        android:gravity="center_vertical"
+        app:layout_constraintLeft_toRightOf="@id/viewAmountSetsText"
+        app:layout_constraintRight_toLeftOf="@id/viewMaxWeight"
+        app:layout_constraintTop_toBottomOf="@id/viewExerciseText" />
+
+    <TextView
+        android:text="30"
+        android:id="@+id/viewMaxWeight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="4dp"
+        android:textColor="@android:color/holo_green_dark"
+        app:layout_constraintLeft_toRightOf="@id/viewMaxWeightText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewExerciseText"
+        android:gravity="center_vertical"
+        android:textSize="20sp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

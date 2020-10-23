@@ -1,2 +1,3 @@
+include ':fitnessapp'
 include ':app'
 rootProject.name = "myProjects"

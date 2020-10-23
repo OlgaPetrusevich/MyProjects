@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="@string/history_tab"
+        android:background="@color/colorToolBar"/>
+
+
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/viewCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:mcv_showOtherDates="all"
+        android:layout_weight="2.5"
+        app:mcv_allowClickDaysOutsideCurrentMonth="true"
+        app:mcv_selectionMode="single"
+        app:mcv_selectionColor="@android:color/transparent"
+        app:mcv_dateTextAppearance="@android:color/black"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="15dp">
+
+    <Button
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/exercise_item"
+        android:id="@+id/viewHistoryCategoryRear"
+        style="@style/TextCategoryHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/category_rear_text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/viewHistoryCategoryLegs"
+        />
+
+    <Button
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/exercise_item"
+        android:id="@+id/viewHistoryCategoryLegs"
+        style="@style/TextCategoryHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/category_legs_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewHistoryCategoryRear"
+        app:layout_constraintBottom_toTopOf="@id/viewHistoryCategoryArms"/>
+
+    <Button
+        android:background="@drawable/exercise_item"
+        android:id="@+id/viewHistoryCategoryArms"
+        style="@style/TextCategoryHistory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="@string/category_arms_text"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewHistoryCategoryLegs"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
