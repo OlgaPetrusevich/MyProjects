@@ -7,14 +7,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import com.gmail.petrusevich.volha.fitnessapp.databinding.ActivityExercisesListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ExercisesListActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityExercisesListBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_exercises_list)
+        binding = ActivityExercisesListBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         loadFragment(ListExerciseFragment.getInstance(), setBundle())
     }
 
@@ -33,7 +37,7 @@ class ExercisesListActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment, bundle: Bundle): Boolean {
         fragment.arguments = bundle
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentExerciseContainer, fragment)
+            .replace(R.id.flFragmentExerciseContainer, fragment)
             .commit()
         return true
     }

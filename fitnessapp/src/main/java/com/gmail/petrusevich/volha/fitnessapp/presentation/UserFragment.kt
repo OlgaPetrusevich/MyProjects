@@ -16,8 +16,8 @@ import androidx.lifecycle.Observer
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.SaveDataSettings
 import com.gmail.petrusevich.volha.fitnessapp.data.HistorySetsDatabaseModel
+import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentProfileTabBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_profile_tab.*
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import javax.inject.Inject
@@ -31,6 +31,9 @@ private const val ARM_MUSCLE = "Руки"
 @AndroidEntryPoint
 @SuppressLint("SetJavaScriptEnabled")
 class UserFragment : Fragment(), View.OnClickListener {
+
+    private var _binding: FragmentProfileTabBinding? = null
+    private val binding get() = _binding!!
 
     private val historyExerciseViewModel by viewModels<HistoryExercisesViewModel>()
 
@@ -48,8 +51,10 @@ class UserFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
-        inflater.inflate(R.layout.fragment_profile_tab, container, false)
+    ): View? {
+        _binding = FragmentProfileTabBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,18 +67,18 @@ class UserFragment : Fragment(), View.OnClickListener {
             })
         }
         historyExerciseViewModel.getSumSets()
-        viewProgressButton.setOnClickListener(this)
-        saveDataSettings.loadWeight(viewWeightText)
-        saveDataSettings.loadHeight(viewHeightText)
+        binding.btnProgress.setOnClickListener(this)
+        saveDataSettings.loadWeight(binding.etWeight)
+        saveDataSettings.loadHeight(binding.etHeight)
         saveDataSettings.loadImage(
-            viewPhoto,
+            binding.ivPhoto,
             requireActivity().applicationContext,
             Array(1) { Manifest.permission.WRITE_EXTERNAL_STORAGE },
             requireActivity()
         )
         showIndex()
         getListener()
-        viewPhoto.setOnClickListener(this)
+        binding.ivPhoto.setOnClickListener(this)
     }
 
     private fun setSumMuscle(itemList: List<HistorySetsDatabaseModel>) {
@@ -89,18 +94,18 @@ class UserFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getIndexWeight() {
-        val height = (viewHeightText.text.toString().toDouble()) / 100
-        val weight = viewWeightText.text.toString().toInt()
+        val height = (binding.etHeight.text.toString().toDouble()) / 100
+        val weight = binding.etWeight.text.toString().toInt()
         val index = weight / (height * height)
         val decFormat = DecimalFormat("##.#")
         val ind = decFormat.format(index)
         val format = NumberFormat.getInstance()
         val number = format.parse(ind)
-        viewIndexWeightText.text = number.toDouble().toString()
+        binding.tvIndexWeight.text = number.toDouble().toString()
     }
 
     private fun showIndex() {
-        if (viewWeightText.text.toString().isNotEmpty() && viewHeightText.text.toString()
+        if (binding.etWeight.text.toString().isNotEmpty() && binding.etHeight.text.toString()
                 .isNotEmpty()
         ) {
             getIndexWeight()
@@ -109,24 +114,26 @@ class UserFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setDescription() {
-        val index = viewIndexWeightText.text.toString().toDouble()
-        if (index < 18.5) {
-            viewIndexDescription.setText(R.string.index_small)
-        } else if (index >= 18.5 && index < 25) {
-            viewIndexDescription.setText(R.string.index_norm)
-        } else if (index in 25.0..30.0) {
-            viewIndexDescription.setText(R.string.index_large)
-        } else if (index > 30) {
-            viewIndexDescription.setText(R.string.index_very_large)
+        val index = binding.tvIndexWeight.text.toString().toDouble()
+        with(binding.tvIndexDescription) {
+            if (index < 18.5) {
+                setText(R.string.index_small)
+            } else if (index >= 18.5 && index < 25) {
+                setText(R.string.index_norm)
+            } else if (index in 25.0..30.0) {
+                setText(R.string.index_large)
+            } else if (index > 30) {
+                setText(R.string.index_very_large)
+            }
         }
     }
 
 
     override fun onClick(view: View?) {
         when (view) {
-            viewProgressButton -> {
-                webView.visibility = View.VISIBLE
-                webView.addJavascriptInterface(
+            binding.btnProgress -> {
+                binding.wvChart.visibility = View.VISIBLE
+                binding.wvChart.addJavascriptInterface(
                     WebAppImpl(
                         countBackMuscle,
                         countChestMuscle,
@@ -135,10 +142,10 @@ class UserFragment : Fragment(), View.OnClickListener {
                         countArmMuscle
                     ), "Android"
                 )
-                webView.settings.javaScriptEnabled = true
-                webView.loadUrl("file:///android_asset/chart.html")
+                binding.wvChart.settings.javaScriptEnabled = true
+                binding.wvChart.loadUrl("file:///android_asset/chart.html")
             }
-            viewPhoto -> {
+            binding.ivPhoto -> {
                 startAct()
             }
         }
@@ -148,7 +155,7 @@ class UserFragment : Fragment(), View.OnClickListener {
         super.onActivityResult(requestCode, resultCode, data)
         val selectedImageURI = data?.data
         saveDataSettings.saveImage(selectedImageURI)
-        viewPhoto.setImageURI(selectedImageURI)
+        binding.ivPhoto.setImageURI(selectedImageURI)
     }
 
     private fun startAct() {
@@ -160,9 +167,9 @@ class UserFragment : Fragment(), View.OnClickListener {
     }
 
     private fun getListener() {
-        viewWeightText.addTextChangedListener(object : TextWatcher {
+        binding.etWeight.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
-                saveDataSettings.saveWeight(viewWeightText)
+                saveDataSettings.saveWeight(binding.etWeight)
                 showIndex()
             }
 
@@ -177,9 +184,9 @@ class UserFragment : Fragment(), View.OnClickListener {
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
 
-        viewHeightText.addTextChangedListener(object : TextWatcher {
+        binding.etHeight.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {
-                saveDataSettings.saveHeight(viewHeightText)
+                saveDataSettings.saveHeight(binding.etHeight)
                 showIndex()
             }
 
@@ -193,6 +200,11 @@ class UserFragment : Fragment(), View.OnClickListener {
 
             override fun onTextChanged(text: CharSequence?, p1: Int, p2: Int, p3: Int) {}
         })
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

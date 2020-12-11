@@ -8,15 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.gmail.petrusevich.volha.fitnessapp.R
+import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentHistoryListBinding
 import com.gmail.petrusevich.volha.fitnessapp.presentation.HistoryExercisesViewModel
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.adapter.HistoryListAdapter
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_history_list.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HistoryListFragment : Fragment() {
+
+    private var _binding: FragmentHistoryListBinding? = null
+    private val binding get() = _binding!!
 
     private val historyExerciseViewModel by viewModels<HistoryExercisesViewModel>()
 
@@ -29,19 +31,21 @@ class HistoryListFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
-        inflater.inflate(R.layout.fragment_history_list, container, false)
+    ): View? {
+        _binding = FragmentHistoryListBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         categoryType = arguments?.getString(KEY_CATEGORY) ?: ""
-        viewHistoryList.adapter = HistoryListAdapter()
+        binding.rvHistoryList.adapter = HistoryListAdapter()
 
         with(viewLifecycleOwner) {
             historyExerciseViewModel.historyLiveData.observe(this, Observer { items ->
-                (viewHistoryList.adapter as? HistoryListAdapter)?.updateExerciseList(items)
+                (binding.rvHistoryList.adapter as? HistoryListAdapter)?.updateExerciseList(items)
                 if (items.isEmpty()) {
-                    viewEmptyListText.visibility = View.VISIBLE
+                    binding.tvEmptyListText.visibility = View.VISIBLE
                 }
             })
 
@@ -50,6 +54,11 @@ class HistoryListFragment : Fragment() {
             })
         }
         historyListController.showHistory(historyExerciseViewModel, categoryType)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

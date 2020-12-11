@@ -31,5 +31,8 @@
     <string name="app_description_text">Карманный фитнес - приложение для улучшения качества тренировок. Позволяет отслеживать историю занятий и прогресс. Содержит комплексы упражнений на различные группы мышц.</string>
     <string name="app_version_text">Версия: 1.0.0</string>
     <string name="app_year_text">Год: 2020</string>
+    <string name="default_exercise_name">Exercise name</string>
+    <string name="default_category_name">Category name</string>
+    <string name="default_date_text">01/01/2020</string>
 
 </resources>

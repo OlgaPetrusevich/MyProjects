@@ -12,18 +12,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.gmail.petrusevich.volha.fitnessapp.R
+import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentExerciseDescriptionBinding
 import com.gmail.petrusevich.volha.fitnessapp.presentation.ExerciseViewModel
 import com.gmail.petrusevich.volha.fitnessapp.presentation.HistoryExercisesViewModel
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.ExerciseItemModel
 import com.gmail.petrusevich.volha.fitnessapp.timer.TimerController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_exercises_list.*
-import kotlinx.android.synthetic.main.fragment_exercise_description.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
+
+    private var _binding: FragmentExerciseDescriptionBinding? = null
+    private val binding get() = _binding!!
 
     private val exerciseViewModel by viewModels<ExerciseViewModel>()
 
@@ -37,28 +39,24 @@ class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
 
     private val handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
-            if (viewTimerButton == null) {
-                removeMessages(1)
-            } else {
-                viewTimerButton.text = msg.obj.toString()
-                viewTimerButton.isClickable = false
-                if (msg.obj == 0) {
-                    viewTimerButton.isClickable = true
-                    viewTimerButton.text = TIME_TIMER
-                }
+            binding.btnTimer.text = msg.obj.toString()
+            binding.btnTimer.isClickable = false
+            if (msg.obj == 0) {
+                binding.btnTimer.isClickable = true
+                binding.btnTimer.text = TIME_TIMER
             }
         }
     }
     private val timerController = TimerController(handler)
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
-        inflater.inflate(R.layout.fragment_exercise_description, container, false)
-
+    ): View? {
+        _binding = FragmentExerciseDescriptionBinding.inflate(layoutInflater, container, false)
+        return (binding.root)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -73,19 +71,42 @@ class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
             })
         }
         exerciseViewModel.getExerciseDescription(idExercise)
-        viewStartExerciseButton.setOnClickListener(this)
-        viewEndExerciseButton.setOnClickListener(this)
-        viewTimerButton.setOnClickListener(this)
+        binding.btnStartExercise.setOnClickListener(this)
+        binding.btnEndExercise.setOnClickListener(this)
+        binding.btnTimer.setOnClickListener(this)
     }
 
     private fun setDescription(exerciseItemModel: ExerciseItemModel) {
         Glide.with(requireContext())
             .load(exerciseItemModel.urlToImage)
-            .into(viewImageExercise)
-        viewTextDescription.text = exerciseItemModel.exerciseDescription
-        activity?.viewActivityExercisesToolbar?.title = exerciseItemModel.exerciseName
+            .into(binding.ivExercisePhoto)
+        binding.tvDescriptionExercise.text = exerciseItemModel.exerciseDescription
+        activity?.tbActivityExercisesToolbar?.title = exerciseItemModel.exerciseName
     }
 
+    override fun onClick(view: View?) {
+        when (view) {
+            binding.btnStartExercise -> {
+                exerciseDescriptionController.getStartTime()
+                exerciseDescriptionController.updateSetAmount(binding.tvSetAmountExercise)
+                exerciseDescriptionController.getWeightSet(binding.tvWeight)
+            }
+
+            binding.btnEndExercise -> {
+                val historyExerciseDataModel = exerciseDescriptionController.writeHistoryExercise(
+                    idExercise,
+                    categoryType,
+                    binding.tvSetAmountExercise
+                )
+                historyExerciseViewModel.insertExerciseToHistory(historyExerciseDataModel)
+                activity?.supportFragmentManager?.popBackStack()
+            }
+
+            binding.btnTimer -> {
+                timerController.getTimerTime()
+            }
+        }
+    }
 
     companion object {
         private const val KEY_ID = "keyId"
@@ -94,30 +115,5 @@ class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
         const val TAG = "ExerciseDescriptionFragment"
         fun getInstance() = ExerciseDescriptionFragment()
     }
-
-    override fun onClick(view: View?) {
-        when (view) {
-            viewStartExerciseButton -> {
-                exerciseDescriptionController.getStartTime()
-                exerciseDescriptionController.updateSetAmount(viewSetAmountExercise)
-                exerciseDescriptionController.getWeightSet(viewWeightText)
-            }
-
-            viewEndExerciseButton -> {
-                val historyExerciseDataModel = exerciseDescriptionController.writeHistoryExercise(
-                    idExercise,
-                    categoryType,
-                    viewSetAmountExercise
-                )
-                historyExerciseViewModel.insertExerciseToHistory(historyExerciseDataModel)
-                activity?.supportFragmentManager?.popBackStack()
-            }
-
-            viewTimerButton -> {
-                timerController.getTimerTime()
-            }
-        }
-    }
-
 
 }

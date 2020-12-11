@@ -10,17 +10,20 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentHistoryTabBinding
 import com.gmail.petrusevich.volha.fitnessapp.presentation.historylist.CalendarController
 import com.gmail.petrusevich.volha.fitnessapp.presentation.historylist.DayDecorator
 import com.gmail.petrusevich.volha.fitnessapp.presentation.historylist.HistoryListFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.fragment_history_tab.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HistoryTabFragment : Fragment(), View.OnClickListener {
+
+    private var _binding: FragmentHistoryTabBinding? = null
+    private val binding get() = _binding!!
 
     private val historyExerciseViewModel by viewModels<HistoryExercisesViewModel>()
 
@@ -31,26 +34,28 @@ class HistoryTabFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
-        inflater.inflate(R.layout.fragment_history_tab, container, false)
+    ): View? {
+        _binding = FragmentHistoryTabBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewHistoryCategoryRear.setOnClickListener(this)
-        viewHistoryCategoryLegs.setOnClickListener(this)
-        viewHistoryCategoryArms.setOnClickListener(this)
+        binding.bHistoryCategoryRear.setOnClickListener(this)
+        binding.bHistoryCategoryLegs.setOnClickListener(this)
+        binding.bHistoryCategoryArms.setOnClickListener(this)
 
-        viewCalendar.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
+        binding.mcvCalendar.setOnDateChangedListener(OnDateSelectedListener { widget, date, selected ->
             val dateText = calendarController.getDateText(date)
             loadFragment(HistoryListFragment.getInstance(), setBundle(dateText))
         })
 
-        viewCalendar.addDecorators(DayDecorator(requireActivity(), CalendarDay.today()))
+        binding.mcvCalendar.addDecorators(DayDecorator(requireActivity(), CalendarDay.today()))
 
         with(viewLifecycleOwner) {
             historyExerciseViewModel.dateLiveData.observe(this, Observer { items ->
                 for (element in items) {
-                    viewCalendar.addDecorators(DayDecorator(requireActivity(), element))
+                    binding.mcvCalendar.addDecorators(DayDecorator(requireActivity(), element))
                 }
             })
             historyExerciseViewModel.historyErrorLiveData.observe(this, Observer { throwable ->
@@ -60,23 +65,17 @@ class HistoryTabFragment : Fragment(), View.OnClickListener {
         historyExerciseViewModel.getAllDate()
     }
 
-    companion object {
-        private const val KEY_CATEGORY = "keyCategoryHistory"
-        const val TAG = "HistoryTabFragment"
-        fun getInstance() = HistoryTabFragment()
-    }
-
     override fun onClick(view: View?) {
         when (view) {
-            viewHistoryCategoryRear -> loadFragment(
+            binding.bHistoryCategoryRear -> loadFragment(
                 HistoryListFragment.getInstance(),
                 setBundle(CategoryType.REAR_CATEGORY.ordinal.toString())
             )
-            viewHistoryCategoryLegs -> loadFragment(
+            binding.bHistoryCategoryLegs -> loadFragment(
                 HistoryListFragment.getInstance(),
                 setBundle(CategoryType.LEGS_CATEGORY.ordinal.toString())
             )
-            viewHistoryCategoryArms -> loadFragment(
+            binding.bHistoryCategoryArms -> loadFragment(
                 HistoryListFragment.getInstance(),
                 setBundle(CategoryType.ARMS_CATEGORY.ordinal.toString())
             )
@@ -86,7 +85,7 @@ class HistoryTabFragment : Fragment(), View.OnClickListener {
     private fun loadFragment(fragment: Fragment, bundle: Bundle): Boolean {
         fragment.arguments = bundle
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+            .replace(R.id.flFragmentContainer, fragment)
             .addToBackStack(null)
             .commit()
         return true
@@ -98,4 +97,14 @@ class HistoryTabFragment : Fragment(), View.OnClickListener {
         return bundle
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        private const val KEY_CATEGORY = "keyCategoryHistory"
+        const val TAG = "HistoryTabFragment"
+        fun getInstance() = HistoryTabFragment()
+    }
 }

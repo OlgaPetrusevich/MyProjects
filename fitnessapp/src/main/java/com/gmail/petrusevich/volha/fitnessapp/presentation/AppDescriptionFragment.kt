@@ -14,7 +14,7 @@ class AppDescriptionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        inflater.inflate(R.layout.fragment_settings_tab, container, false)
+        inflater.inflate(R.layout.fragment_app_description_tab, container, false)
 
     companion object {
         const val TAG = "AppDescriptionFragment"

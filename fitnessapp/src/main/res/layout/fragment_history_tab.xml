@@ -13,7 +13,7 @@
 
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/viewCalendar"
+        android:id="@+id/mcvCalendar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:mcv_showOtherDates="all"
@@ -32,7 +32,7 @@
     <Button
         android:layout_marginBottom="5dp"
         android:background="@drawable/exercise_item"
-        android:id="@+id/viewHistoryCategoryRear"
+        android:id="@+id/bHistoryCategoryRear"
         style="@style/TextCategoryHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -40,32 +40,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/viewHistoryCategoryLegs"
+        app:layout_constraintBottom_toTopOf="@id/bHistoryCategoryLegs"
         />
 
     <Button
         android:layout_marginBottom="5dp"
         android:background="@drawable/exercise_item"
-        android:id="@+id/viewHistoryCategoryLegs"
+        android:id="@+id/bHistoryCategoryLegs"
         style="@style/TextCategoryHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/category_legs_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewHistoryCategoryRear"
-        app:layout_constraintBottom_toTopOf="@id/viewHistoryCategoryArms"/>
+        app:layout_constraintTop_toBottomOf="@id/bHistoryCategoryRear"
+        app:layout_constraintBottom_toTopOf="@id/bHistoryCategoryArms"/>
 
     <Button
         android:background="@drawable/exercise_item"
-        android:id="@+id/viewHistoryCategoryArms"
+        android:id="@+id/bHistoryCategoryArms"
         style="@style/TextCategoryHistory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:text="@string/category_arms_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewHistoryCategoryLegs"
+        app:layout_constraintTop_toBottomOf="@id/bHistoryCategoryLegs"
         app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

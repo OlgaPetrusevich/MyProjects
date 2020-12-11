@@ -15,30 +15,30 @@
         app:title="@string/profile_tab" />
 
     <ImageView
-        android:id="@+id/viewPhoto"
+        android:id="@+id/ivPhoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
         android:src="@drawable/ic_profile"
-        app:layout_constraintRight_toLeftOf="@id/weightText"
+        app:layout_constraintRight_toLeftOf="@id/tvWeightText"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab"
-        app:layout_constraintBottom_toBottomOf="@id/viewIndexDescription"/>
+        app:layout_constraintBottom_toBottomOf="@id/tvIndexDescription"/>
 
     <TextView
-        android:id="@+id/weightText"
+        android:id="@+id/tvWeightText"
         style="@style/TextStyleProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:text="@string/weight_text"
-        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
-        app:layout_constraintRight_toLeftOf="@id/viewWeightText"
+        app:layout_constraintLeft_toRightOf="@id/ivPhoto"
+        app:layout_constraintRight_toLeftOf="@id/etWeight"
         app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab"
-        app:layout_constraintBottom_toTopOf="@id/viewHeightText"/>
+        app:layout_constraintBottom_toTopOf="@id/etHeight"/>
 
     <EditText
-        android:id="@+id/viewWeightText"
+        android:id="@+id/etWeight"
         style="@style/TextStyleProfileEmpty"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -47,24 +47,24 @@
         android:textSize="16sp"
         android:hint="@string/weight_text_empty"
         android:inputType="number"
-        app:layout_constraintLeft_toRightOf="@id/weightText"
+        app:layout_constraintLeft_toRightOf="@id/tvWeightText"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab" />
 
     <TextView
-        android:id="@+id/heightText"
+        android:id="@+id/tvHeightText"
         style="@style/TextStyleProfile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="bottom"
         android:text="@string/height_text"
-        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
-        app:layout_constraintRight_toLeftOf="@id/viewWeightText"
-        app:layout_constraintTop_toBottomOf="@id/weightText"
-        app:layout_constraintBottom_toBottomOf="@id/viewHeightText"/>
+        app:layout_constraintLeft_toRightOf="@id/ivPhoto"
+        app:layout_constraintRight_toLeftOf="@id/etWeight"
+        app:layout_constraintTop_toBottomOf="@id/tvWeightText"
+        app:layout_constraintBottom_toBottomOf="@id/etHeight"/>
 
     <EditText
-        android:id="@+id/viewHeightText"
+        android:id="@+id/etHeight"
         style="@style/TextStyleProfileEmpty"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,23 +73,23 @@
         android:textSize="16sp"
         android:textColor="@android:color/holo_green_dark"
         android:inputType="number"
-        app:layout_constraintLeft_toRightOf="@id/heightText"
+        app:layout_constraintLeft_toRightOf="@id/tvHeightText"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewWeightText"  />
+        app:layout_constraintTop_toBottomOf="@id/etWeight"  />
 
     <TextView
-        android:id="@+id/indexWeightText"
+        android:id="@+id/tvIndexWeightText"
         style="@style/TextStyleProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/index_weight_text"
         android:gravity="center"
-        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintLeft_toRightOf="@id/ivPhoto"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewHeightText" />
+        app:layout_constraintTop_toBottomOf="@id/etHeight" />
 
     <TextView
-        android:id="@+id/viewIndexWeightText"
+        android:id="@+id/tvIndexWeight"
         style="@style/TextStyleProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -97,22 +97,22 @@
         android:textSize="16sp"
         android:text="@string/index_text"
         android:textColor="@android:color/holo_green_dark"
-        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintLeft_toRightOf="@id/ivPhoto"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/indexWeightText" />
+        app:layout_constraintTop_toBottomOf="@id/tvIndexWeightText" />
 
     <TextView
-        android:id="@+id/viewIndexDescription"
+        android:id="@+id/tvIndexDescription"
         style="@style/TextStyleProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        app:layout_constraintLeft_toRightOf="@id/viewPhoto"
+        app:layout_constraintLeft_toRightOf="@id/ivPhoto"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewIndexWeightText" />
+        app:layout_constraintTop_toBottomOf="@id/tvIndexWeight" />
 
     <Button
-        android:id="@+id/viewProgressButton"
+        android:id="@+id/btnProgress"
         style="@style/TextStyleProfile"
         android:layout_width="0dp"
         android:paddingEnd="5dp"
@@ -125,10 +125,10 @@
         android:text="@string/progress_text"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewIndexDescription" />
+        app:layout_constraintTop_toBottomOf="@id/tvIndexDescription" />
 
     <WebView
-        android:id="@+id/webView"
+        android:id="@+id/wvChart"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="10dp"
@@ -136,49 +136,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewProgressButton" />
+        app:layout_constraintTop_toBottomOf="@id/btnProgress" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/textGender"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="@string/gender_text"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toLeftOf="@id/textAge"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab" />-->
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/viewGenderText"-->
-    <!--        style="@style/TextStyle"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:gravity="center"-->
-    <!--        android:hint="@string/gender_text"-->
-    <!--        android:inputType="text"-->
-    <!--        app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--        app:layout_constraintRight_toLeftOf="@id/viewAgeText"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/textGender" />-->
-
-    <!--    <TextView-->
-    <!--        android:id="@+id/textAge"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:gravity="center"-->
-    <!--        android:text="@string/age_text"-->
-    <!--        app:layout_constraintLeft_toRightOf="@id/textGender"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/viewToolbarProfileTab" />-->
-
-    <!--    <EditText-->
-    <!--        android:id="@+id/viewAgeText"-->
-    <!--        style="@style/TextStyle"-->
-    <!--        android:layout_width="0dp"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:gravity="center"-->
-    <!--        android:hint="@string/age_text"-->
-    <!--        android:inputType="number"-->
-    <!--        app:layout_constraintLeft_toRightOf="@id/viewGenderText"-->
-    <!--        app:layout_constraintRight_toRightOf="parent"-->
-    <!--        app:layout_constraintTop_toBottomOf="@id/textAge" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>

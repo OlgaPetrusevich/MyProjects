@@ -13,7 +13,7 @@
 
 
     <Button
-        android:id="@+id/viewCategoryFirst"
+        android:id="@+id/bCategoryFirst"
         style="@style/TextCategory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,7 +24,7 @@
 
     <Button
         android:textStyle="bold"
-        android:id="@+id/viewCategorySecond"
+        android:id="@+id/bCategorySecond"
         style="@style/TextCategory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -33,7 +33,7 @@
 
     <Button
         android:textStyle="bold"
-        android:id="@+id/viewCategoryThird"
+        android:id="@+id/bCategoryThird"
         style="@style/TextCategory"
         android:layout_width="match_parent"
         android:layout_height="0dp"
