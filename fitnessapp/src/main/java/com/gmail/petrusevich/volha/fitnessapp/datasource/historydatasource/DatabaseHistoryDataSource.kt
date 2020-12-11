@@ -1,19 +1,16 @@
 package com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource
 
-import android.content.Context
 import com.gmail.petrusevich.volha.fitnessapp.data.HistoryDatabaseModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistoryExerciseDataModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistorySetsDatabaseModel
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class DatabaseHistoryDataSource(
-    context: Context
+class DatabaseHistoryDataSource @Inject constructor(
+    private val historyExercisesDao: HistoryExercisesDao
 ) : HistoryExercisesDataSource {
-
-    private val historyExercisesDao =
-        HistoryExercisesDatabase.getInstance(context)?.getHistoryExercisesDao()
 
     override fun getDateHistory(date: String): Observable<List<HistoryDatabaseModel>> {
         return Observable.create(ObservableOnSubscribe<List<HistoryDatabaseModel>>() {

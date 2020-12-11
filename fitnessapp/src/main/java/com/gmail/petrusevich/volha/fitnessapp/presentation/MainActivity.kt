@@ -6,10 +6,11 @@ import androidx.fragment.app.Fragment
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.CategoryExerciseFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_main.*
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
 
     private val onNavigationItemSelectedListener: BottomNavigationView.OnNavigationItemSelectedListener by lazy {
         BottomNavigationView.OnNavigationItemSelectedListener() {

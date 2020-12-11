@@ -7,18 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import dagger.hilt.android.AndroidEntryPoint
 
-private const val CATEGORY_KEY = "categoryKey"
-
+@AndroidEntryPoint
 class ExercisesListActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercises_list)
         loadFragment(ListExerciseFragment.getInstance(), setBundle())
     }
-
 
     private fun getCategoryType(): String {
         val categoryType: CategoryType = intent.getSerializableExtra(CATEGORY_KEY) as CategoryType
@@ -28,7 +26,7 @@ class ExercisesListActivity : AppCompatActivity() {
     private fun setBundle(): Bundle {
         val categoryType = getCategoryType()
         val bundle = Bundle()
-        bundle.putString("keyBundle", categoryType)
+        bundle.putString(CATEGORY_TYPE_KEY, categoryType)
         return bundle
     }
 
@@ -41,6 +39,8 @@ class ExercisesListActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val CATEGORY_KEY = "categoryKey"
+        private const val CATEGORY_TYPE_KEY = "categoryTypeKey"
         fun newIntent(context: Context?, idCategory: CategoryType): Intent {
             val intent = Intent(context, ExercisesListActivity::class.java)
             intent.putExtra(CATEGORY_KEY, idCategory)

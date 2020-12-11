@@ -1,21 +1,18 @@
 package com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource
 
-import android.content.Context
 import com.gmail.petrusevich.volha.fitnessapp.data.ExerciseDataModel
-import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.database.ExerciseDatabase
+import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.database.ExerciseDao
 import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
-class DatabaseExerciseDataSource(
-    context: Context
-) : ExerciseDataSource<ExerciseDataModel> {
-
-    private val exerciseDao = ExerciseDatabase.getInstance(context)?.getExerciseDao()
+class DatabaseExerciseDataSource @Inject constructor(private val exerciseDao: ExerciseDao) :
+    ExerciseDataSource<ExerciseDataModel> {
 
     override fun getExercises(param: String): Observable<List<ExerciseDataModel>> {
         return Observable.create(ObservableOnSubscribe<List<ExerciseDataModel>>() {
-            val listExercise: List<ExerciseDataModel>? = exerciseDao?.getCategoryExercises(param)
+            val listExercise: List<ExerciseDataModel>? = exerciseDao.getCategoryExercises(param)
             if (listExercise != null) {
                 it.onNext(listExercise)
             } else {
@@ -27,7 +24,7 @@ class DatabaseExerciseDataSource(
 
     override fun getExerciseDescription(param: String): Observable<ExerciseDataModel> {
         return Observable.create(ObservableOnSubscribe<ExerciseDataModel>() {
-            val exerciseDataModel: ExerciseDataModel? = exerciseDao?.getExercise(param)
+            val exerciseDataModel: ExerciseDataModel? = exerciseDao.getExercise(param)
             if (exerciseDataModel != null) {
                 it.onNext(exerciseDataModel)
             } else {

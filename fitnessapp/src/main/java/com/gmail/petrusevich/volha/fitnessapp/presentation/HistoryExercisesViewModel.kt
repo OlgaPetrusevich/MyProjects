@@ -1,14 +1,13 @@
 package com.gmail.petrusevich.volha.fitnessapp.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistoryExerciseDataModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistorySetsDatabaseModel
 import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryExerciseDomainModel
 import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryListUseCase
-import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryListUseCaseImpl
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.HistoryExerciseItemModel
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.HistoryItemModelMapper
 import com.gmail.petrusevich.volha.fitnessapp.presentation.historylist.DateTypeMapper
@@ -17,12 +16,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class HistoryExercisesViewModel(context: Application) : AndroidViewModel(context) {
+class HistoryExercisesViewModel @ViewModelInject constructor(private val historyListUseCase: HistoryListUseCase) :
+    ViewModel() {
 
     private val historyItemModelMapper: (List<HistoryExerciseDomainModel>) -> List<HistoryExerciseItemModel> =
         HistoryItemModelMapper()
     private val dateTypeMapper: (List<String>) -> List<CalendarDay> = DateTypeMapper()
-    private val historyListUseCase: HistoryListUseCase = HistoryListUseCaseImpl(context)
     private var disposable: Disposable? = null
 
     private val mutableHistoryLiveData = MutableLiveData<List<HistoryExerciseItemModel>>()

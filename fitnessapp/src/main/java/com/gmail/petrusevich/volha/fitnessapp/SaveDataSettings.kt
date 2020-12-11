@@ -8,50 +8,42 @@ import android.net.Uri
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
+import javax.inject.Inject
 
-private const val KEY_SETTINGS = "KEY_SETTINGS"
-private const val KEY_SETTINGS1 = "KEY_SETTINGS1"
-private const val KEY_SETTINGS2 = "KEY_SETTINGS2"
-private const val KEY_SETTINGS3 = "KEY_SETTINGS3"
+const val KEY_SETTINGS = "KEY_SETTINGS"
+private const val KEY_SAVE_HEIGHT = "KEY_SAVE_HEIGHT"
+private const val KEY_SAVE_WEIGHT = "KEY_SAVE_WEIGHT"
+private const val KEY_SAVE_IMAGE = "KEY_SAVE_IMAGE"
 
-class SaveDataSettings {
-
-    companion object {
-        lateinit var sharedPreferences: SharedPreferences
-
-        fun getInstance(context: Context): SaveDataSettings {
-            sharedPreferences = context.getSharedPreferences(KEY_SETTINGS, Context.MODE_PRIVATE)
-            return SaveDataSettings()
-        }
-    }
+class SaveDataSettings @Inject constructor(private val sharedPreferences: SharedPreferences) {
 
     fun saveImage(imageViewURI: Uri?) {
         sharedPreferences.edit().apply {
-            putString(KEY_SETTINGS3, imageViewURI.toString())
+            putString(KEY_SAVE_IMAGE, imageViewURI.toString())
             apply()
         }
     }
 
     fun saveHeight(text: EditText) {
         sharedPreferences.edit().apply {
-            putString(KEY_SETTINGS1, text.text.toString())
+            putString(KEY_SAVE_HEIGHT, text.text.toString())
             apply()
         }
     }
 
     fun saveWeight(text: EditText) {
         sharedPreferences.edit().apply {
-            putString(KEY_SETTINGS2, text.text.toString())
+            putString(KEY_SAVE_WEIGHT, text.text.toString())
             apply()
         }
     }
 
     fun loadHeight(text: EditText) {
-        text.setText(sharedPreferences.getString(KEY_SETTINGS1, null))
+        text.setText(sharedPreferences.getString(KEY_SAVE_HEIGHT, null))
     }
 
     fun loadWeight(text: EditText) {
-        text.setText(sharedPreferences.getString(KEY_SETTINGS2, null))
+        text.setText(sharedPreferences.getString(KEY_SAVE_WEIGHT, null))
     }
 
     fun loadImage(
@@ -63,9 +55,9 @@ class SaveDataSettings {
         if (!hasPermission(context, permissions)) {
             ActivityCompat.requestPermissions(activity, permissions, 111)
         } else {
-            val uriText = sharedPreferences.getString(KEY_SETTINGS3, null)
+            val uriText = sharedPreferences.getString(KEY_SAVE_IMAGE, null)
             if (uriText != null) {
-                val uri = Uri.parse(sharedPreferences.getString(KEY_SETTINGS3, null))
+                val uri = Uri.parse(sharedPreferences.getString(KEY_SAVE_IMAGE, null))
                 imageView.setImageURI(uri)
             }
         }

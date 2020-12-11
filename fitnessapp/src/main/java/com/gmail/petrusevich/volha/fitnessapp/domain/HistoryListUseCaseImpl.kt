@@ -1,17 +1,14 @@
 package com.gmail.petrusevich.volha.fitnessapp.domain
 
-import android.content.Context
 import com.gmail.petrusevich.volha.fitnessapp.data.HistoryExerciseDataModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistorySetsDatabaseModel
 import com.gmail.petrusevich.volha.fitnessapp.data.repository.HistoryExercisesRepository
-import com.gmail.petrusevich.volha.fitnessapp.data.repository.HistoryExercisesRepositoryImpl
 import io.reactivex.Observable
+import javax.inject.Inject
 
-class HistoryListUseCaseImpl(
-    context: Context
+class HistoryListUseCaseImpl @Inject constructor(
+    private val repository: HistoryExercisesRepository
 ) : HistoryListUseCase {
-
-    private val repository: HistoryExercisesRepository = HistoryExercisesRepositoryImpl(context)
 
     override fun getDateHistory(date: String): Observable<List<HistoryExerciseDomainModel>> =
         repository.getDateHistory(date)

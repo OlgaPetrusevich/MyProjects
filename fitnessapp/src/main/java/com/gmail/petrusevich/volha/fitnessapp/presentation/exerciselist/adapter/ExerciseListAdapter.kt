@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.ExerciseItemModel
 import kotlinx.android.synthetic.main.item_exercise.view.*
+import javax.inject.Inject
 
 class ExerciseListAdapter(
     private val itemOnClickListener: ItemOnClickListener
