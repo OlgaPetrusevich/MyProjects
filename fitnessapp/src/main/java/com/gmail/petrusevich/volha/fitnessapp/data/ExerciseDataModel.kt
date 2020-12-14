@@ -2,6 +2,7 @@ package com.gmail.petrusevich.volha.fitnessapp.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.gmail.petrusevich.volha.fitnessapp.domain.ExerciseDomainModel
 
 @Entity(tableName = "Exercise")
 class ExerciseDataModel(

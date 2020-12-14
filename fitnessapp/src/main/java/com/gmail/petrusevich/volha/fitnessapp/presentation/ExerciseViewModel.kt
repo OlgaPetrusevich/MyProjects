@@ -1,23 +1,23 @@
 package com.gmail.petrusevich.volha.fitnessapp.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.gmail.petrusevich.volha.fitnessapp.domain.ExerciseDomainModel
 import com.gmail.petrusevich.volha.fitnessapp.domain.ExerciseListUseCase
-import com.gmail.petrusevich.volha.fitnessapp.domain.ExerciseListUseCaseImpl
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.ExerciseItemModel
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.ExerciseItemModelMapper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 
-class ExerciseViewModel(context: Application) : AndroidViewModel(context) {
+class ExerciseViewModel @ViewModelInject constructor(private val exerciseListUseCase: ExerciseListUseCase) :
+    ViewModel() {
 
     private val exercisesViewModelMapper: (List<ExerciseDomainModel>) -> List<ExerciseItemModel> =
         ExerciseItemModelMapper()
-    private val exerciseListUseCase: ExerciseListUseCase = ExerciseListUseCaseImpl(context)
+
     private var disposable: Disposable? = null
 
     private val mutableExercisesLiveData = MutableLiveData<List<ExerciseItemModel>>()

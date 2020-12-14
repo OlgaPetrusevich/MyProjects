@@ -6,56 +6,69 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.gmail.petrusevich.volha.fitnessapp.R
 import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentExercisesListBinding
 import com.gmail.petrusevich.volha.fitnessapp.presentation.ExerciseViewModel
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.adapter.ExerciseListAdapter
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.adapter.ItemOnClickListener
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.exercisedescription.ExerciseDescriptionFragment
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_exercises_list.*
-import kotlinx.android.synthetic.main.fragment_exercises_list.*
 
+@AndroidEntryPoint
 class ListExerciseFragment : Fragment(), ItemOnClickListener {
 
-    private val exerciseViewModel by lazy { ViewModelProvider(this).get(ExerciseViewModel::class.java) }
-    private val categoryType by lazy { arguments?.getString("keyBundle") }
+    private val viewModel by viewModels<ExerciseViewModel>()
+
+    private lateinit var categoryType: String
+
+    private var _binding: FragmentExercisesListBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =
-        inflater.inflate(R.layout.fragment_exercises_list, container, false)
+    ): View? {
+        _binding = FragmentExercisesListBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewGymList.adapter = ExerciseListAdapter(this)
+        categoryType = arguments?.getString(KEY_CATEGORY_TYPE) ?: ""
+        binding.rvGymList.adapter = ExerciseListAdapter(this)
+
         with(viewLifecycleOwner) {
-            exerciseViewModel.exercisesLiveData.observe(this, Observer { items ->
-                (viewGymList.adapter as? ExerciseListAdapter)?.updateExerciseList(items)
+            viewModel.exercisesLiveData.observe(this, Observer { items ->
+                (binding.rvGymList.adapter as? ExerciseListAdapter)?.updateExerciseList(items)
             })
-            exerciseViewModel.exercisesErrorLiveData.observe(this, Observer { throwable ->
+
+            viewModel.exercisesErrorLiveData.observe(this, Observer { throwable ->
                 Log.d("Error", throwable.message!!)
             })
         }
 
-        exerciseViewModel.getCategoryExercises(categoryType!!)
-        getTitleToolbar(categoryType as String)
+        viewModel.getCategoryExercises(categoryType)
+        getTitleToolbar(categoryType)
     }
 
     override fun itemOnClick(position: Int) {
-        val idExercise: String = exerciseViewModel.exercisesLiveData.value!![position].id
+        val idExercise: String = viewModel.exercisesLiveData.value!![position].id
         loadFragment(
             ExerciseDescriptionFragment.getInstance(),
-            setBundle(idExercise, categoryType!!)
+            setBundle(idExercise, categoryType)
         )
     }
 
     private fun loadFragment(fragment: Fragment, bundle: Bundle): Boolean {
         fragment.arguments = bundle
-        activity!!.supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentExerciseContainer, fragment)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.flFragmentExerciseContainer, fragment)
             .addToBackStack(null)
             .commit()
         return true
@@ -63,13 +76,13 @@ class ListExerciseFragment : Fragment(), ItemOnClickListener {
 
     private fun getTitleToolbar(categoryType: String) {
         when (categoryType) {
-            CategoryType.REAR_CATEGORY.ordinal.toString() -> activity?.viewActivityExercisesToolbar?.setTitle(
+            CategoryType.REAR_CATEGORY.ordinal.toString() -> activity?.tbActivityExercisesToolbar?.setTitle(
                 R.string.category_rear_text
             )
-            CategoryType.LEGS_CATEGORY.ordinal.toString() -> activity?.viewActivityExercisesToolbar?.setTitle(
+            CategoryType.LEGS_CATEGORY.ordinal.toString() -> activity?.tbActivityExercisesToolbar?.setTitle(
                 R.string.category_legs_text
             )
-            CategoryType.ARMS_CATEGORY.ordinal.toString() -> activity?.viewActivityExercisesToolbar?.setTitle(
+            CategoryType.ARMS_CATEGORY.ordinal.toString() -> activity?.tbActivityExercisesToolbar?.setTitle(
                 R.string.category_arms_text
             )
         }
@@ -77,12 +90,20 @@ class ListExerciseFragment : Fragment(), ItemOnClickListener {
 
     private fun setBundle(idExercise: String, categoryType: String): Bundle {
         val bundle = Bundle()
-        bundle.putString("key", idExercise)
-        bundle.putString("keyCategory", categoryType)
+        bundle.putString(KEY_ID, idExercise)
+        bundle.putString(KEY_CATEGORY, categoryType)
         return bundle
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     companion object {
+        private const val KEY_ID = "keyId"
+        private const val KEY_CATEGORY = "keyCategory"
+        private const val KEY_CATEGORY_TYPE = "categoryTypeKey"
         const val TAG = "ListExerciseFragment"
         fun getInstance() = ListExerciseFragment()
     }

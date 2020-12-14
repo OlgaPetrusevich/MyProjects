@@ -7,10 +7,11 @@ import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.*
+import javax.inject.Inject
 
-class ExerciseDescriptionController {
+class ExerciseDescriptionController @Inject constructor() {
 
-    private val timeStart: Long by lazy { Date().time }
+    private val timeStart: Long = Date().time
     private val weightList = mutableListOf<Int>()
 
     private fun getTimeExercise(): Long {

@@ -2,9 +2,10 @@ package com.gmail.petrusevich.volha.fitnessapp.presentation.historylist
 
 import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
 import com.gmail.petrusevich.volha.fitnessapp.presentation.HistoryExercisesViewModel
+import javax.inject.Inject
 
 
-class HistoryListController {
+class HistoryListController @Inject constructor() {
 
     fun showHistory(viewModel: HistoryExercisesViewModel, param: String) {
         var isCategory = false

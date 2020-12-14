@@ -5,9 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.gmail.petrusevich.volha.fitnessapp.R
+import com.gmail.petrusevich.volha.fitnessapp.databinding.ItemExerciseBinding
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.ExerciseItemModel
-import kotlinx.android.synthetic.main.item_exercise.view.*
 
 class ExerciseListAdapter(
     private val itemOnClickListener: ItemOnClickListener
@@ -17,9 +16,9 @@ class ExerciseListAdapter(
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExerciseListViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_exercise, parent, false)
-        return ExerciseListViewHolder(view, itemOnClickListener)
+        val itemBinding =
+            ItemExerciseBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ExerciseListViewHolder(itemBinding, itemOnClickListener)
     }
 
     override fun getItemCount(): Int = exerciseItemList.size
@@ -37,20 +36,20 @@ class ExerciseListAdapter(
     }
 
     class ExerciseListViewHolder(
-        itemView: View, private val itemOnClickListener: ItemOnClickListener
-    ) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        private val itemBinding: ItemExerciseBinding,
+        private val itemOnClickListener: ItemOnClickListener
+    ) : RecyclerView.ViewHolder(itemBinding.root), View.OnClickListener {
 
         init {
-            itemView.setOnClickListener(this)
+            itemBinding.root.setOnClickListener(this)
         }
 
         fun bind(exerciseItemList: ExerciseItemModel) {
-            itemView.viewNameExercise.text = exerciseItemList.exerciseName
-            Glide.with(itemView.context)
+            itemBinding.tvExerciseName.text = exerciseItemList.exerciseName
+            Glide.with(itemBinding.root.context)
                 .load(exerciseItemList.urlToSmallImage)
-                .into(itemView.viewImageMiniature)
+                .into(itemBinding.ivMiniatureExercise)
         }
-
 
         override fun onClick(view: View?) {
             itemOnClickListener.itemOnClick(adapterPosition)

@@ -1,23 +1,20 @@
 package com.gmail.petrusevich.volha.fitnessapp.data.repository
 
-import android.content.Context
 import com.gmail.petrusevich.volha.fitnessapp.data.HistoryDatabaseModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistoryExerciseDataModel
 import com.gmail.petrusevich.volha.fitnessapp.data.HistorySetsDatabaseModel
-import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.DatabaseHistoryDataSource
 import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.HistoryExercisesDataSource
 import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryDomainModelMapper
 import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryExerciseDomainModel
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
 
 
-class HistoryExercisesRepositoryImpl(
-    context: Context
+class HistoryExercisesRepositoryImpl @Inject constructor(
+    private val historyExercisesDataSource: HistoryExercisesDataSource
 ) : HistoryExercisesRepository {
 
-    private val historyExercisesDataSource: HistoryExercisesDataSource =
-        DatabaseHistoryDataSource(context)
     private val historyDomainModelMapper: (List<HistoryDatabaseModel>) -> List<HistoryExerciseDomainModel> =
         HistoryDomainModelMapper()
 

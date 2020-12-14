@@ -7,46 +7,46 @@
     android:background="@drawable/exercise_item">
 
     <TextView
-        android:id="@+id/viewDateText"
+        android:id="@+id/tvDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:layout_marginBottom="2dp"
         android:paddingEnd="20dp"
-        android:text="01/01/2020"
+        android:text="@string/default_date_text"
         android:textColor="@color/colorLightGrey"
         android:textSize="20sp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/viewCategoryText"
+        app:layout_constraintRight_toLeftOf="@id/tvCategory"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/viewCategoryText"
+        android:id="@+id/tvCategory"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="2dp"
-        android:text="CategoryName"
+        android:text="@string/default_category_name"
         android:textColor="@color/colorLightGrey"
         android:textSize="20sp"
-        app:layout_constraintLeft_toRightOf="@id/viewDateText"
+        app:layout_constraintLeft_toRightOf="@id/tvDate"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/viewExerciseText"
+        android:id="@+id/tvExerciseName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
         android:layout_marginBottom="2dp"
         android:textSize="19sp"
-        android:text="ExerciseNAme"
+        android:text="@string/default_exercise_name"
         android:textColor="@color/colorViolet"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewCategoryText" />
+        app:layout_constraintTop_toBottomOf="@id/tvCategory" />
 
     <TextView
-        android:id="@+id/viewSetAmountText"
+        android:id="@+id/tvSetAmountText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
@@ -55,25 +55,24 @@
         android:text="@string/set_exercise_text"
         android:textColor="@color/colorLightGrey"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewExerciseText"
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName"
         android:gravity="center_vertical"/>
 
     <TextView
-        android:id="@+id/viewAmountSetsText"
+        android:id="@+id/tvAmountSets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         android:paddingEnd="10dp"
         android:textColor="@android:color/holo_green_dark"
-        app:layout_constraintLeft_toRightOf="@id/viewSetAmountText"
-        app:layout_constraintRight_toLeftOf="@id/viewMaxWeightText"
-        app:layout_constraintTop_toBottomOf="@id/viewExerciseText"
-        android:textSize="20sp"
         android:gravity="center_vertical"
-        android:text="30"/>
+        app:layout_constraintLeft_toRightOf="@id/tvSetAmountText"
+        app:layout_constraintRight_toLeftOf="@id/tvMaxWeightText"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName" />
 
     <TextView
-        android:id="@+id/viewMaxWeightText"
+        android:id="@+id/tvMaxWeightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
@@ -81,20 +80,19 @@
         android:text="@string/max_weight_text"
         android:textColor="@color/colorLightGrey"
         android:gravity="center_vertical"
-        app:layout_constraintLeft_toRightOf="@id/viewAmountSetsText"
-        app:layout_constraintRight_toLeftOf="@id/viewMaxWeight"
-        app:layout_constraintTop_toBottomOf="@id/viewExerciseText" />
+        app:layout_constraintLeft_toRightOf="@id/tvAmountSets"
+        app:layout_constraintRight_toLeftOf="@id/tvMaxWeight"
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName" />
 
     <TextView
-        android:text="30"
-        android:id="@+id/viewMaxWeight"
+        android:id="@+id/tvMaxWeight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="4dp"
         android:textColor="@android:color/holo_green_dark"
-        app:layout_constraintLeft_toRightOf="@id/viewMaxWeightText"
+        app:layout_constraintLeft_toRightOf="@id/tvMaxWeightText"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewExerciseText"
+        app:layout_constraintTop_toBottomOf="@id/tvExerciseName"
         android:gravity="center_vertical"
         android:textSize="20sp"/>
 

@@ -4,12 +4,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.gmail.petrusevich.volha.fitnessapp.R
+import com.gmail.petrusevich.volha.fitnessapp.databinding.ActivityMainBinding
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.CategoryExerciseFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.activity_main.*
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
 
     private val onNavigationItemSelectedListener: BottomNavigationView.OnNavigationItemSelectedListener by lazy {
         BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -25,17 +28,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        viewButtonNavigation.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener)
-        viewButtonNavigation.selectedItemId = R.id.viewNavigationGym
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.bnvBottomNavigation.setOnNavigationItemSelectedListener(
+            onNavigationItemSelectedListener
+        )
+        binding.bnvBottomNavigation.selectedItemId = R.id.viewNavigationGym
     }
 
     private fun loadFragment(fragment: Fragment): Boolean {
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
+            .replace(R.id.flFragmentContainer, fragment)
             .commit()
         return true
     }
-
 
 }

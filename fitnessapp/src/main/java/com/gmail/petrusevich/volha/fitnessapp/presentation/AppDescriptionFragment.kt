@@ -14,18 +14,10 @@ class AppDescriptionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? =
-        inflater.inflate(R.layout.fragment_settings_tab, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
+        inflater.inflate(R.layout.fragment_app_description_tab, container, false)
 
     companion object {
         const val TAG = "AppDescriptionFragment"
         fun getInstance() = AppDescriptionFragment()
     }
-
-
 }
