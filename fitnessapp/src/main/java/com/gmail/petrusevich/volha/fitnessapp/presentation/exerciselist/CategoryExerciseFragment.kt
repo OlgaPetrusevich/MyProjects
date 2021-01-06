@@ -1,30 +1,20 @@
 package com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist
 
 import android.graphics.drawable.Drawable
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import com.gmail.petrusevich.volha.fitnessapp.presentation.model.CategoryType
 import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentCategoryExerciseTabBinding
+import com.gmail.petrusevich.volha.fitnessapp.presentation.base.BaseFragment
 
-class CategoryExerciseFragment : Fragment(), View.OnClickListener {
+class CategoryExerciseFragment : BaseFragment<FragmentCategoryExerciseTabBinding>(),
+    View.OnClickListener {
 
-    private var _binding: FragmentCategoryExerciseTabBinding? = null
-    private val binding get() = _binding!!
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentCategoryExerciseTabBinding =
+        FragmentCategoryExerciseTabBinding::inflate
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentCategoryExerciseTabBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun initViews() {
         val inputStream = activity?.applicationContext?.assets?.open("1.png")
         val inputStream1 = activity?.applicationContext?.assets?.open("2.png")
         val inputStream2 = activity?.applicationContext?.assets?.open("3.png")
@@ -44,11 +34,6 @@ class CategoryExerciseFragment : Fragment(), View.OnClickListener {
             binding.bCategoryThird -> categoryType = CategoryType.ARMS_CATEGORY
         }
         startActivity(ExercisesListActivity.newIntent(context, categoryType))
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

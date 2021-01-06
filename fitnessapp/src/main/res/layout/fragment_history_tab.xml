@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/colorLightGrey2">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -21,52 +22,81 @@
         app:mcv_allowClickDaysOutsideCurrentMonth="true"
         app:mcv_selectionMode="single"
         app:mcv_selectionColor="@android:color/transparent"
-        app:mcv_dateTextAppearance="@android:color/black"/>
+        app:mcv_dateTextAppearance="@android:color/black"
+        android:background="@android:color/white"
+        android:layout_margin="3dp"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:layout_margin="15dp">
+        android:layout_margin="15dp"
+        app:cardCornerRadius="15dp"
+        android:background="@android:color/white">
 
-    <Button
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/exercise_item"
-        android:id="@+id/bHistoryCategoryRear"
-        style="@style/TextCategoryHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/category_rear_text"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/bHistoryCategoryLegs"
-        />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <Button
-        android:layout_marginBottom="5dp"
-        android:background="@drawable/exercise_item"
-        android:id="@+id/bHistoryCategoryLegs"
-        style="@style/TextCategoryHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/category_legs_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bHistoryCategoryRear"
-        app:layout_constraintBottom_toTopOf="@id/bHistoryCategoryArms"/>
+            <Button
+                android:id="@+id/bHistoryCategoryRear"
+                style="@style/TextCategoryHistory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:text="@string/category_rear_text"
+                app:layout_constraintBottom_toTopOf="@id/line1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:background="@drawable/exercise_item"
-        android:id="@+id/bHistoryCategoryArms"
-        style="@style/TextCategoryHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:text="@string/category_arms_text"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bHistoryCategoryLegs"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <View
+                android:id="@+id/line1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGrey"
+                app:layout_constraintBottom_toTopOf="@id/bHistoryCategoryLegs"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bHistoryCategoryRear" />
+
+            <Button
+                android:id="@+id/bHistoryCategoryLegs"
+                style="@style/TextCategoryHistory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:text="@string/category_legs_text"
+                app:layout_constraintBottom_toTopOf="@id/line2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line1" />
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorLightGrey"
+                app:layout_constraintBottom_toTopOf="@id/bHistoryCategoryArms"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/bHistoryCategoryLegs" />
+
+            <Button
+                android:id="@+id/bHistoryCategoryArms"
+                style="@style/TextCategoryHistory"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="5dp"
+                android:background="@android:color/transparent"
+                android:text="@string/category_arms_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/line2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

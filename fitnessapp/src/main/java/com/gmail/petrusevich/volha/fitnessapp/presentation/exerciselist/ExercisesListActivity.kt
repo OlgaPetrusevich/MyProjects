@@ -3,22 +3,25 @@ package com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
+import com.gmail.petrusevich.volha.fitnessapp.presentation.base.BaseActivity
 import com.gmail.petrusevich.volha.fitnessapp.R
-import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import com.gmail.petrusevich.volha.fitnessapp.presentation.model.CategoryType
 import com.gmail.petrusevich.volha.fitnessapp.databinding.ActivityExercisesListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class ExercisesListActivity : AppCompatActivity() {
+class ExercisesListActivity : BaseActivity<ActivityExercisesListBinding>() {
 
-    private lateinit var binding: ActivityExercisesListBinding
+    override val bindingInflater: (LayoutInflater) -> ActivityExercisesListBinding = ActivityExercisesListBinding::inflate
+
+    override fun initViews() {
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityExercisesListBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         loadFragment(ListExerciseFragment.getInstance(), setBundle())
     }
 

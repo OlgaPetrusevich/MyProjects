@@ -1,7 +1,7 @@
 package com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.database
 
 import androidx.room.*
-import com.gmail.petrusevich.volha.fitnessapp.data.ExerciseDataModel
+import com.gmail.petrusevich.volha.fitnessapp.entity.ExerciseDataModel
 
 @Dao
 interface ExerciseDao {

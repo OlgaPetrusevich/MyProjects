@@ -8,24 +8,25 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentExerciseDescriptionBinding
-import com.gmail.petrusevich.volha.fitnessapp.presentation.ExerciseViewModel
-import com.gmail.petrusevich.volha.fitnessapp.presentation.HistoryExercisesViewModel
-import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.itemmodel.ExerciseItemModel
-import com.gmail.petrusevich.volha.fitnessapp.timer.TimerController
+import com.gmail.petrusevich.volha.fitnessapp.presentation.base.BaseFragment
+import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.ExerciseViewModel
+import com.gmail.petrusevich.volha.fitnessapp.presentation.helpers.timer.TimerController
+import com.gmail.petrusevich.volha.fitnessapp.presentation.historylist.HistoryExercisesViewModel
+import com.gmail.petrusevich.volha.fitnessapp.presentation.model.exerciselist.ExerciseItemModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_exercises_list.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
+class ExerciseDescriptionFragment : BaseFragment<FragmentExerciseDescriptionBinding>(),
+    View.OnClickListener {
 
-    private var _binding: FragmentExerciseDescriptionBinding? = null
-    private val binding get() = _binding!!
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExerciseDescriptionBinding =
+        FragmentExerciseDescriptionBinding::inflate
 
     private val exerciseViewModel by viewModels<ExerciseViewModel>()
 
@@ -49,19 +50,22 @@ class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
     }
     private val timerController = TimerController(handler)
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentExerciseDescriptionBinding.inflate(layoutInflater, container, false)
-        return (binding.root)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        idExercise = arguments?.getString(KEY_ID) ?: ""
         categoryType = arguments?.getString(KEY_CATEGORY) ?: ""
+        initViewModel()
+    }
+
+    override fun initViews() {
+        binding.btnStartExercise.setOnClickListener(this)
+        binding.btnEndExercise.setOnClickListener(this)
+        binding.btnTimer.setOnClickListener(this)
+    }
+
+    private fun initViewModel() {
+        idExercise = arguments?.getString(KEY_ID) ?: ""
+        exerciseViewModel.getExerciseDescription(idExercise)
+
         with(viewLifecycleOwner) {
             exerciseViewModel.exerciseDescriptionLiveData.observe(this, Observer { item ->
                 setDescription(item)
@@ -70,10 +74,6 @@ class ExerciseDescriptionFragment : Fragment(), View.OnClickListener {
                 Log.d("Error", throwable.message!!)
             })
         }
-        exerciseViewModel.getExerciseDescription(idExercise)
-        binding.btnStartExercise.setOnClickListener(this)
-        binding.btnEndExercise.setOnClickListener(this)
-        binding.btnTimer.setOnClickListener(this)
     }
 
     private fun setDescription(exerciseItemModel: ExerciseItemModel) {

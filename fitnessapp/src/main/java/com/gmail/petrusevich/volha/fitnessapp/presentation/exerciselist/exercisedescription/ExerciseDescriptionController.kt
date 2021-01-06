@@ -2,7 +2,7 @@ package com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.exercis
 
 import android.widget.EditText
 import android.widget.TextView
-import com.gmail.petrusevich.volha.fitnessapp.data.HistoryExerciseDataModel
+import com.gmail.petrusevich.volha.fitnessapp.entity.HistoryExerciseDataModel
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter

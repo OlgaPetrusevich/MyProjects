@@ -1,11 +1,11 @@
 package com.gmail.petrusevich.volha.fitnessapp.di
 
-import com.gmail.petrusevich.volha.fitnessapp.data.repository.ExerciseRepository
-import com.gmail.petrusevich.volha.fitnessapp.data.repository.HistoryExercisesRepository
-import com.gmail.petrusevich.volha.fitnessapp.domain.ExerciseListUseCase
-import com.gmail.petrusevich.volha.fitnessapp.domain.ExerciseListUseCaseImpl
-import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryListUseCase
-import com.gmail.petrusevich.volha.fitnessapp.domain.HistoryListUseCaseImpl
+import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.repository.ExerciseRepository
+import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.repository.HistoryExercisesRepository
+import com.gmail.petrusevich.volha.fitnessapp.domain.exercise.ExerciseListUseCase
+import com.gmail.petrusevich.volha.fitnessapp.domain.exercise.ExerciseListUseCaseImpl
+import com.gmail.petrusevich.volha.fitnessapp.domain.history.HistoryListUseCase
+import com.gmail.petrusevich.volha.fitnessapp.domain.history.HistoryListUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

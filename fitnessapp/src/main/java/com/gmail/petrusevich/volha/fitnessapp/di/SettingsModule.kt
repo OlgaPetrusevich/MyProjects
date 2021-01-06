@@ -2,16 +2,16 @@ package com.gmail.petrusevich.volha.fitnessapp.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.gmail.petrusevich.volha.fitnessapp.KEY_SETTINGS
-import com.gmail.petrusevich.volha.fitnessapp.SaveDataSettings
+import com.gmail.petrusevich.volha.fitnessapp.common.settings.KEY_SETTINGS
+import com.gmail.petrusevich.volha.fitnessapp.common.settings.SaveDataSettings
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 @Module
 object SettingsModule {
 

@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorLightGrey2">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/viewToolbarProfileTab"
@@ -18,7 +19,7 @@
         android:id="@+id/ivPhoto"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:src="@drawable/ic_profile"
         app:layout_constraintRight_toLeftOf="@id/tvWeightText"
         app:layout_constraintLeft_toLeftOf="parent"

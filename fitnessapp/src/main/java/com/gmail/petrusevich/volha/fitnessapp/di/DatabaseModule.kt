@@ -2,24 +2,24 @@ package com.gmail.petrusevich.volha.fitnessapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.gmail.petrusevich.volha.fitnessapp.data.ExerciseDataModel
-import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.DatabaseExerciseDataSource
 import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.ExerciseDataSource
+import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.ExerciseDataSourceImpl
 import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.database.ExerciseDao
 import com.gmail.petrusevich.volha.fitnessapp.datasource.exercisedatasource.database.ExerciseDatabase
-import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.DatabaseHistoryDataSource
-import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.HistoryExercisesDao
 import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.HistoryExercisesDataSource
-import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.HistoryExercisesDatabase
+import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.HistoryExercisesDataSourceImpl
+import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.database.HistoryExercisesDao
+import com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource.database.HistoryExercisesDatabase
+import com.gmail.petrusevich.volha.fitnessapp.entity.ExerciseDataModel
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn(ApplicationComponent::class)
 @Module
+@InstallIn(SingletonComponent::class)
 object DatabaseModule {
 
     @Provides
@@ -37,7 +37,7 @@ object DatabaseModule {
 
     @Provides
     fun provideDatabaseExerciseDataSource(database: ExerciseDatabase): ExerciseDataSource<ExerciseDataModel> {
-        return DatabaseExerciseDataSource(database.getExerciseDao())
+        return ExerciseDataSourceImpl(database.getExerciseDao())
     }
 
     @Provides
@@ -59,7 +59,7 @@ object DatabaseModule {
 
     @Provides
     fun provideHistoryExercisesDataSource(database: HistoryExercisesDatabase): HistoryExercisesDataSource {
-        return DatabaseHistoryDataSource(database.getHistoryExercisesDao())
+        return HistoryExercisesDataSourceImpl(database.getHistoryExercisesDao())
     }
 
 }

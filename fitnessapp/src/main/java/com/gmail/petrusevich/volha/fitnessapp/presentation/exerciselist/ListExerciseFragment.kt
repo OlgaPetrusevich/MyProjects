@@ -9,40 +9,38 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.gmail.petrusevich.volha.fitnessapp.R
-import com.gmail.petrusevich.volha.fitnessapp.data.CategoryType
+import com.gmail.petrusevich.volha.fitnessapp.presentation.model.CategoryType
 import com.gmail.petrusevich.volha.fitnessapp.databinding.FragmentExercisesListBinding
-import com.gmail.petrusevich.volha.fitnessapp.presentation.ExerciseViewModel
-import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.adapter.ExerciseListAdapter
-import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.adapter.ItemOnClickListener
+import com.gmail.petrusevich.volha.fitnessapp.presentation.adapter.exerciselist.ExerciseListAdapter
+import com.gmail.petrusevich.volha.fitnessapp.presentation.adapter.exerciselist.ItemOnClickListener
+import com.gmail.petrusevich.volha.fitnessapp.presentation.base.BaseFragment
 import com.gmail.petrusevich.volha.fitnessapp.presentation.exerciselist.exercisedescription.ExerciseDescriptionFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.activity_exercises_list.*
 
 @AndroidEntryPoint
-class ListExerciseFragment : Fragment(), ItemOnClickListener {
+class ListExerciseFragment : BaseFragment<FragmentExercisesListBinding>(), ItemOnClickListener {
+
+    override val bindingInflater: (LayoutInflater, ViewGroup?, Boolean) -> FragmentExercisesListBinding =
+        FragmentExercisesListBinding::inflate
 
     private val viewModel by viewModels<ExerciseViewModel>()
 
     private lateinit var categoryType: String
 
-    private var _binding: FragmentExercisesListBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentExercisesListBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
-
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         categoryType = arguments?.getString(KEY_CATEGORY_TYPE) ?: ""
-        binding.rvGymList.adapter = ExerciseListAdapter(this)
+        initAdapter()
+        initViewModel()
+    }
 
+    override fun initViews() {
+        getTitleToolbar(categoryType)
+    }
+
+    private fun initViewModel() {
+        viewModel.getCategoryExercises(categoryType)
         with(viewLifecycleOwner) {
             viewModel.exercisesLiveData.observe(this, Observer { items ->
                 (binding.rvGymList.adapter as? ExerciseListAdapter)?.updateExerciseList(items)
@@ -52,9 +50,10 @@ class ListExerciseFragment : Fragment(), ItemOnClickListener {
                 Log.d("Error", throwable.message!!)
             })
         }
+    }
 
-        viewModel.getCategoryExercises(categoryType)
-        getTitleToolbar(categoryType)
+    private fun initAdapter() {
+        binding.rvGymList.adapter = ExerciseListAdapter(this)
     }
 
     override fun itemOnClick(position: Int) {
@@ -93,11 +92,6 @@ class ListExerciseFragment : Fragment(), ItemOnClickListener {
         bundle.putString(KEY_ID, idExercise)
         bundle.putString(KEY_CATEGORY, categoryType)
         return bundle
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     companion object {

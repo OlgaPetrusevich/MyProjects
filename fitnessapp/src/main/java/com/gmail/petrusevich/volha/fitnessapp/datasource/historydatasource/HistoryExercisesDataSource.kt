@@ -1,8 +1,8 @@
 package com.gmail.petrusevich.volha.fitnessapp.datasource.historydatasource
 
-import com.gmail.petrusevich.volha.fitnessapp.data.HistoryDatabaseModel
-import com.gmail.petrusevich.volha.fitnessapp.data.HistoryExerciseDataModel
-import com.gmail.petrusevich.volha.fitnessapp.data.HistorySetsDatabaseModel
+import com.gmail.petrusevich.volha.fitnessapp.datasource.databasemodel.HistoryDatabaseModel
+import com.gmail.petrusevich.volha.fitnessapp.entity.HistoryExerciseDataModel
+import com.gmail.petrusevich.volha.fitnessapp.datasource.databasemodel.HistorySetsDatabaseModel
 import io.reactivex.Observable
 
 interface HistoryExercisesDataSource {
